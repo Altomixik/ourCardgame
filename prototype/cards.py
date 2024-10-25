@@ -29,3 +29,4 @@ def deck(deck_name = 'test'):
 			Card(9, [], '9'),
 		]
 	}
+	return decks[deck_name]

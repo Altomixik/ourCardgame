@@ -14,26 +14,23 @@ class Player:
 	def __repr__(self):
 		return f'\n{self.name}:\n\tplacements: {self.placements}\n\thand: {self.hand}\n\tdeck: {self.deck}'
 	
-	
-	def draw(self, times = 1):
-		for i in range(times):
+	def draw(self, times = 0):
+		for i in times:
+			self.hand.append(self.deck.pop())
+
+
+	def draw_until(self, until):
+		while len(self.hand) < until:
 			self.hand.append(self.deck.pop())
 
 	def place(self, card_id):
-		#* not in testing
+		# not in testing
 		# if dice.roll() >= self.hand[card_id].cost:
 		self.placements.append(self.hand.pop(card_id))
 
 	def is_starved(self) -> bool:
 		return not bool(self.placements + self.hand + self.deck)
 
-	def attack(self, card_id, target, target_id):
-		throw_result = dice.roll() - dice.roll() >= self.placements[card_id].cost - target.placements[target_id].cost
-		if throw_result:
-			target.placements.pop(target_id)
-			print('you killed a card')
-		else:
-			print('you failed an attack')
-	
-	def shuffle(self):
-		shuffle(self.deck)
+	def attack(self, target, card_id, target_id):
+		return True # dice.roll() - dice.roll() >= self.placements[card_id].cost - target.placements[target_id].cost
+		
